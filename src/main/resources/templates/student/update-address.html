@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Update address</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+<div class="container justify-content-center">
+    <div class="position-absolute top-50 start-50 translate-middle">
+        <div class="card text-center" style="width: 30rem;">
+            <h2 class="card-header text-center">Update Address</h2>
+            <div class="card-body">
+                <form id="updateAddress" action="#" th:action="@{/student/update/address/{id}(id=${address.id})}"
+                      th:object="${address}" method="post">
+                    <br/>
+                    <label>City:
+                        <br>
+                        <input type="text"
+                               th:field="*{city}"
+                               placeholder="City"/>
+                        <span class="validationError"
+                              th:if="${#fields.hasErrors('city')}"
+                              th:errors="*{city}">Field can`t be empty</span>
+                    </label>
+                    <br/>
+                    <br/>
+                    <label>Street:
+                        <br>
+                        <input type="text"
+                               th:field="*{street}"
+                               placeholder="Street"/>
+                        <span class="validationError"
+                              th:if="${#fields.hasErrors('street')}"
+                              th:errors="*{street}">Field can`t be empty</span>
+                    </label>
+                    <br/>
+                    <br/>
+                    <label>Number:
+                        <br>
+                        <input type="text"
+                               th:field="*{number}"
+                               placeholder="Number"/>
+                        <span class="validationError"
+                              th:if="${#fields.hasErrors('number')}"
+                              th:errors="*{number}">Field can`t be empty</span>
+                    </label>
+                    <br/>
+                    <br/>
+                    <label>Apartment:
+                        <br>
+                        <input type="text"
+                               th:field="*{apt}"
+                               placeholder="Apartment"/>
+                    </label>
+                    <br/>
+                    <br/>
+                    <label>Zip:
+                        <br>
+                        <input type="text"
+                               th:field="*{zip}"
+                               placeholder="Zip"/>
+                        <span class="validationError"
+                              th:if="${#fields.hasErrors('zip')}"
+                              th:errors="*{zip}">Field can`t be empty</span>
+                    </label>
+                    <br>
+                </form>
+            </div>
+            <div class="card-footer">
+                <br>
+                <button form="updateAddress" type="submit" class="btn btn-outline-success btn-sm mb-3">Update</button>
+                <a href="/student" class="btn btn-outline-primary btn-sm mb-3">Back</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

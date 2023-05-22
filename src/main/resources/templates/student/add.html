@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add Student</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+<div class="container justify-content-center">
+    <div class="position-absolute top-100 start-50 translate-middle">
+        <div class="card" style="width: 30rem;">
+            <h2 class="card-header text-center">Add Student</h2>
+            <div class="card-body">
+                <form action="#" th:action="@{/student/add}" th:object="${student}" method="post">
+                    <div class="form-group">
+                        <label class="form-label">First name</label>
+                        <input type="text"
+                               class="form-control"
+                               th:field="*{firstName}"
+                               placeholder="Enter first name"/>
+                        <span class="validationError"
+                              th:if="${#fields.hasErrors('firstName')}"
+                              th:errors="*{firstName}">Field can`t be empty</span>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label class="form-label">Last name</label>
+                        <input type="text"
+                               class="form-control"
+                               th:field="*{lastName}"
+                               placeholder="Enter last name"/>
+                        <span class="validationError"
+                              th:if="${#fields.hasErrors('lastName')}"
+                              th:errors="*{lastName}">Field can`t be empty</span>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email"
+                               class="form-control"
+                               th:field="*{userEmail}"
+                               placeholder="Enter email"/>
+                        <span class="validationError"
+                              th:if="${#fields.hasErrors('userEmail')}"
+                              th:errors="*{lastName}">Field can`t be empty</span>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password"
+                               class="form-control"
+                               th:field="*{userPassword}"
+                               placeholder="Enter password"/>
+                        <span class="validationError"
+                              th:if="${#fields.hasErrors('userPassword')}"
+                              th:errors="*{lastName}">Field can`t be empty</span>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label class="form-label">Phone</label>
+                        <input type="number"
+                               class="form-control"
+                               th:field="*{phone}"
+                               placeholder="Enter phone number"/>
+                        <span class="validationError"
+                              th:if="${#fields.hasErrors('phone')}"
+                              th:errors="*{phone}">Field can`t be empty</span>
+                    </div>
+                    <br/>
+                    <div class="form-group">
+                        <label class="text-center">Address</label>
+                        <br/>
+                        <div class="form-group">
+                            <label class="form-label">City</label>
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="*{addressCity}"
+                                   placeholder="City"/>
+                            <span class="validationError"
+                                  th:if="${#fields.hasErrors('addressCity')}"
+                                  th:errors="*{addressCity}">Field can`t be empty</span>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label class="form-label">Street</label>
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="*{addressStreet}"
+                                   placeholder="Street"/>
+                            <span class="validationError"
+                                  th:if="${#fields.hasErrors('addressStreet')}"
+                                  th:errors="*{addressStreet}">Field can`t be empty</span>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label class="form-label">Number</label>
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="*{addressNumber}"
+                                   placeholder="Number"/>
+                            <span class="validationError"
+                                  th:if="${#fields.hasErrors('addressNumber')}"
+                                  th:errors="*{addressNumber}">Field can`t be empty</span>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label class="form-label">Apartment</label>
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="*{addressApt}"
+                                   placeholder="Apartment"/>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label class="form-label">Zip</label>
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="*{addressZip}"
+                                   placeholder="Zip"/>
+                            <span class="validationError"
+                                  th:if="${#fields.hasErrors('addressZip')}"
+                                  th:errors="*{addressZip}">Field can`t be empty</span>
+                        </div>
+                    </div>
+                    <br/>
+                    <label class="form-label">Group</label>
+                    <select class="form-select" aria-label="Default select example" th:field="*{group}">
+                        <option th:each="group : ${groups}"
+                                th:value="${group.id}"
+                                th:text="${group.getName}">
+                        </option>
+                    </select>
+                    <br/>
+                    <label class="form-label">Courses</label>
+                    <div class="form-check" th:each="course : ${courses}">
+                        <input class="form-check-input" type="checkbox" th:field="*{courses}"
+                               th:value="${course.id}"
+                               th:selected="${student.courses.contains(course)}">
+                        <label class="form-check-label" th:text="${course.getName}"></label>
+                    </div>
+                    <br/>
+                    <div>
+                        <button type="submit" class="btn btn-outline-success btn-sm mb-3">Add</button>
+                        <a href="/student" class="btn btn-outline-primary btn-sm mb-3">Back</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

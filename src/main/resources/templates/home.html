@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>University management system</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <br>
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:href="@{/schedule}">Schedule</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:href="@{/student}">Students</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:href="@{/group}">Groups</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:href="@{/course}">Courses</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:href="@{/teacher}">Teachers</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:href="@{/admin}">Admin page</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:href="@{/login}">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" th:href="@{/logout}">Logout</a>
+            </li>
+        </ul>
+        <br>
+        <h1 class="modal-header justify-content-lg-center">University management system</h1>
+    </div>
+    <div class="container justify-content-center">
+        <div class="position-absolute top-50 start-50 translate-middle">
+            <div>
+                <h7>Welcome to University Management System</h7>
+                <p>If you are not registered, please follow one of the links below.</p>
+            </div>
+            <br>
+            <div>
+                <a class="nav-link" href="#" th:href="@{/student/add}">Welcome Student!</a>
+                <a class="nav-link" href="#" th:href="@{/teacher/add}">Welcome Teacher!</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

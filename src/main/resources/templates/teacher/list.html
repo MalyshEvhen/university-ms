@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Teachers</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <br>
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/}">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/schedule}">Schedule</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/student}">Students</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/group}">Groups</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/course}">Courses</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" th:href="@{/teacher}">Teachers</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin}">Admin page</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/login}">Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/logout}">Logout</a>
+        </li>
+    </ul>
+    <br>
+    <h1 class="modal-header justify-content-lg-center">Teachers</h1>
+    <br>
+    <div class="row" th:if="${#lists.isEmpty(teachers)}">
+        <h2 class="text-center">No Teachers</h2>
+    </div>
+    <div class="row" th:if="${not #lists.isEmpty(teachers)}">
+        <h2 class="text-center">Teacher List</h2>
+        <br>
+        <div>
+            <button class="btn btn-outline-primary btn-sm mb-3" data-bs-toggle="modal" data-bs-target="#modal1">
+                Add Teacher
+            </button>
+        </div>
+        <br>
+        <table class="table table-striped table-bordered">
+            <thead class="table-light">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Professional Post</th>
+                <th scope="col">Academic Degree</th>
+                <th scope="col">Actions</th>
+                <th scope="col">Update</th>
+            </tr>
+            </thead>
+            <tbody class="table-light">
+            <tr th:each="teacher : ${teachers}">
+                <td th:text="${teacher.id}"></td>
+                <td th:text="${teacher.firstName}"></td>
+                <td th:text="${teacher.lastName}"></td>
+                <td th:text="${teacher.professionalPost}"></td>
+                <td th:text="${teacher.academicDegree}"></td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                        <a th:href="@{/teacher/info/{id}(id=${teacher.id})}" type="button"
+                           class="btn btn-outline-primary">Info
+                        </a>
+                        <a th:href="@{/teacher/delete/{id}(id=${teacher.id})}" type="button"
+                           class="btn btn-outline-primary">Delete
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                        <a th:href="@{/teacher/update/address/{id}(id=${teacher.id})}" type="button"
+                           class="btn btn-outline-primary">Address
+                        </a>
+                        <a th:href="@{/teacher/update/courses/{id}(id=${teacher.id})}" type="button"
+                           class="btn btn-outline-primary">Courses
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal fade" id="modal1" tabindex="-1" aria-labelledby="addTeacherModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addTeacherModalLabel">Add teacher form</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="#" th:action="@{/teacher/add}" th:object="${teacher}" method="post"
+                          id="add-teacher-form">
+                        <div class="form-group">
+                            <label class="form-label">First name</label>
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="*{firstName}"
+                                   placeholder="Enter first name"/>
+                            <span class="validationError"
+                                  th:if="${#fields.hasErrors('firstName')}"
+                                  th:errors="*{firstName}">Field can`t be empty</span>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label class="form-label">Last name</label>
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="*{lastName}"
+                                   placeholder="Enter last name"/>
+                            <span class="validationError"
+                                  th:if="${#fields.hasErrors('lastName')}"
+                                  th:errors="*{lastName}">Field can`t be empty</span>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email"
+                                   class="form-control"
+                                   th:field="*{userEmail}"
+                                   placeholder="Enter email"/>
+                            <span class="validationError"
+                                  th:if="${#fields.hasErrors('userEmail')}"
+                                  th:errors="*{lastName}">Field can`t be empty</span>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <input type="password"
+                                   class="form-control"
+                                   th:field="*{userPassword}"
+                                   placeholder="Enter password"/>
+                            <span class="validationError"
+                                  th:if="${#fields.hasErrors('userPassword')}"
+                                  th:errors="*{lastName}">Field can`t be empty</span>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label class="form-label">Phone</label>
+                            <input type="number"
+                                   class="form-control"
+                                   th:field="*{phone}"
+                                   placeholder="Enter phone number"/>
+                            <span class="validationError"
+                                  th:if="${#fields.hasErrors('phone')}"
+                                  th:errors="*{phone}">Field can`t be empty</span>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label class="text-center">Address</label>
+                            <br/>
+                            <div class="form-group">
+                                <label class="form-label">City</label>
+                                <input type="text"
+                                       class="form-control"
+                                       th:field="*{addressCity}"
+                                       placeholder="City"/>
+                                <span class="validationError"
+                                      th:if="${#fields.hasErrors('addressCity')}"
+                                      th:errors="*{addressCity}">Field can`t be empty</span>
+                            </div>
+                            <br/>
+                            <div class="form-group">
+                                <label class="form-label">Street</label>
+                                <input type="text"
+                                       class="form-control"
+                                       th:field="*{addressStreet}"
+                                       placeholder="Street"/>
+                                <span class="validationError"
+                                      th:if="${#fields.hasErrors('addressStreet')}"
+                                      th:errors="*{addressStreet}">Field can`t be empty</span>
+                            </div>
+                            <br/>
+                            <div class="form-group">
+                                <label class="form-label">Number</label>
+                                <input type="text"
+                                       class="form-control"
+                                       th:field="*{addressNumber}"
+                                       placeholder="Number"/>
+                                <span class="validationError"
+                                      th:if="${#fields.hasErrors('addressNumber')}"
+                                      th:errors="*{addressNumber}">Field can`t be empty</span>
+                            </div>
+                            <br/>
+                            <div class="form-group">
+                                <label class="form-label">Apartment</label>
+                                <input type="text"
+                                       class="form-control"
+                                       th:field="*{addressApt}"
+                                       placeholder="Apartment"/>
+                            </div>
+                            <br/>
+                            <div class="form-group">
+                                <label class="form-label">Zip</label>
+                                <input type="text"
+                                       class="form-control"
+                                       th:field="*{addressZip}"
+                                       placeholder="Zip"/>
+                                <span class="validationError"
+                                      th:if="${#fields.hasErrors('addressZip')}"
+                                      th:errors="*{addressZip}">Field can`t be empty</span>
+                            </div>
+                        </div>
+                        <br/>
+                        <label class="form-label">Courses</label>
+                        <div class="form-check" th:each="course : ${courses}">
+                            <input class="form-check-input" type="checkbox" th:field="*{courses}"
+                                   th:value="${course.id}"
+                                   th:selected="${teacher.courses.contains(course)}">
+                            <label class="form-check-label" th:text="${course.getName}"></label>
+                        </div>
+                        <br/>
+                        <label class="form-label" th:field="*{academicDegree}">Academic Degree</label>
+                        <select class="form-select" aria-label="Default select example">
+                            <option value="ASSOCIATE">ASSOCIATE</option>
+                            <option value="BACHELOR">BACHELOR</option>
+                            <option value="MASTER">MASTER</option>
+                            <option value="DOCTOR">DOCTOR</option>
+                        </select>
+                        <br/>
+                        <label class="form-label" th:field="*{professionalPost}">Professional Post</label>
+                        <select class="form-select" aria-label="Default select example">
+                            <option value="ASSISTANT">ASSISTANT</option>
+                            <option value="LECTURER">LECTURER</option>
+                            <option value="DOCENT">DOCENT</option>
+                            <option value="PROFESSOR">PROFESSOR</option>
+                        </select>
+                        <br/>
+                        <div>
+                            <button type="submit" class="btn btn-outline-success btn-sm mb-3" data-bs-dismiss="modal">
+                                Add
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

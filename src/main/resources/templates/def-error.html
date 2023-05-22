@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Exception default page</title>
+</head>
+<body>
+<h1>Error Page</h1>
+<p>Application has encountered an error.</p>
+<!--
+  Failed URL: ${url}
+  Exception:  ${exception.message}
+      <c:forEach items="${exception.stackTrace}" var="ste">    ${ste}
+  </c:forEach>
+-->
+</body>
+</html>

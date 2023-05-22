@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Courses</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+<div class="container">
+    <br>
+    <ul class="nav nav-pills">
+        <li class="nav-item">
+            <a class="nav-link" href="#" th:href="@{/}">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" th:href="@{/schedule}">Schedule</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" th:href="@{/student}">Students</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" th:href="@{/group}">Groups</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Courses</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" th:href="@{/teacher}">Teachers</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" th:href="@{/admin}">Admin page</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" th:href="@{/login}">Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" th:href="@{/logout}">Logout</a>
+        </li>
+    </ul>
+    <br>
+    <h1 class="modal-header justify-content-lg-center">Courses</h1>
+    <br>
+    <div class="row" th:if="${#lists.isEmpty(courses)}">
+        <h2 class="text-center">No courses</h2>
+    </div>
+    <div class="row" th:if="${not #lists.isEmpty(courses)}">
+        <h2 class="text-center">Course List</h2>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-6">
+            <a href="#" th:href="@{/course/add}" class="btn btn-outline-primary btn-sm mb-3">Add course</a>
+        </div>
+    </div>
+    <br>
+    <div class="table-responsive text-nowrap">
+        <table class="table table-striped table-bordered">
+            <thead class="table-light">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Course name</th>
+                <th scope="col">Course description</th>
+                <th scope="col">Course teachers</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="course : ${courses}">
+                <td th:text="${course.id}"></td>
+                <td th:text="${course.getName}"></td>
+                <td th:text="${course.getDescription}"></td>
+                <td th:if="not ${#lists.isEmpty(course.teachers)}" th:each="teacher : ${course.teachers}">
+                    <p th:text="${teacher.firstName} + ' ' +${teacher.lastName}"></p>
+                </td>
+                <td th:if="${#lists.isEmpty(course.teachers)}">No teachers</td>
+                <td>
+                    <a href="#" th:href="@{/course/update/{id}(id=${course.id})}"
+                       class="btn btn-outline-primary btn-sm">Update</a>
+                    <a href="#" th:href="@{/course/delete/{id}(id=${course.id})}"
+                       class="btn btn-outline-danger btn-sm">Delete</a>
+                    <a href="#" th:href="@{/course/info/{id}(id=${course.id})}"
+                       class="btn btn-outline-danger btn-sm">Info</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+
+</html>
